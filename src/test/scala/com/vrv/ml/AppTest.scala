@@ -38,6 +38,7 @@ class AppTest {
     val test2 = new Cat("test2")
     animals.append(dog)
     animals.append(cat)
+    val test5 = new Cat("test5")
     animals.foreach(pet => println(pet.name))
   }
 
