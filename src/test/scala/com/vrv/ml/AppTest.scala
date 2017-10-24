@@ -33,6 +33,7 @@ class AppTest {
   def traits = {
     val dog = new Dog("Harry")
     val cat = new Cat("Sally")
+    val test1 = new Cat("test1")
     val animals = ArrayBuffer.empty[Pet]
     animals.append(dog)
     animals.append(cat)
