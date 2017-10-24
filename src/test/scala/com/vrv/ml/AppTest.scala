@@ -35,6 +35,7 @@ class AppTest {
     val cat = new Cat("Sally")
     val test = new Cat("test")
     val animals = ArrayBuffer.empty[Pet]
+    val test2 = new Cat("test2")
     animals.append(dog)
     animals.append(cat)
     animals.foreach(pet => println(pet.name))
