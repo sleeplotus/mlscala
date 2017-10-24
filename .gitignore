@@ -1,0 +1,14 @@
+/target
+/.idea
+*.iml
+*.ipr
+*.iws
+.idea
+*/target/
+*.DS_Store
+*.classpath
+*.settings
+*.project
+/.idea/*
+/metastore_db/*
+metastore_db/*
