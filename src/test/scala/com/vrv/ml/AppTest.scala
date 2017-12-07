@@ -44,9 +44,9 @@ class AppTest {
   }
 
   @Test
-  def caseclass = {
+  def caseclass(cols :String*) = {
     val book = new Book("978-0486282114");
-
+    cols.toArray
   }
 
 }

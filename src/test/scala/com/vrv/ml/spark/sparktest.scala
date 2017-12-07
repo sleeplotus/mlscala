@@ -1,7 +1,10 @@
 package com.vrv.ml.spark
 
-import com.vrv.ml.WordCount
-import org.apache.spark.{HashPartitioner, RangePartitioner, SparkConf, SparkContext}
+import kafka.serializer.StringDecoder
+import org.apache.spark.streaming._
+import org.apache.spark.streaming.kafka._
+import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
+import org.elasticsearch.spark._
 import org.junit.Assert.assertTrue
 import org.junit._
 
@@ -178,5 +181,59 @@ class sparktest {
     rdd.map(x => accum += x).take(2)
     println(accum.value)
   }
+
+  @Test
+  def spark10 = {
+    sc.stop()
+    // Create a local StreamingContext with two working thread and batch interval of 1 second.
+    // The master requires 2 cores to prevent from a starvation scenario.
+    val ssc = new StreamingContext(conf, Seconds(5))
+    // Create a DStream that will connect to hostname:port, like localhost:9999
+    val lines = ssc.socketTextStream("192.168.2.15", 9999)
+    // Split each line into words
+    val words = lines.flatMap(_.split(" "))
+    //    words.foreachRDD(_.collect().foreach(println))
+    // Count each word in each batch
+    val pairs = words.map(word => (word, 1))
+    val wordCounts = pairs.reduceByKey(_ + _)
+    // Print the first ten elements of each RDD generated in this DStream to the console
+    wordCounts.print()
+    ssc.start() // Start the computation
+    ssc.awaitTermination() // Wait for the computation to terminate
+  }
+
+  case class NetWorkData()
+
+  @Test
+  def spark11 = {
+    sc.stop()
+    val ssc = new StreamingContext(conf, Seconds(10))
+    val kafkaParams = Map[String, String](
+      "metadata.broker.list" -> "192.168.2.118:9092",
+      "auto.offset.reset" -> "smallest"
+    )
+    val topics = Set[String]("DemoTest01")
+    val directKafkaStream = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
+      ssc,
+      kafkaParams,
+      topics
+    )
+    directKafkaStream.map()
+
+    // Start the computation
+    ssc.start()
+    ssc.awaitTermination()
+
+  }
+
+  @Test
+  def spark12 = {
+    sc.stop()
+    conf.set("es.nodes", "192.168.2.16").set("es.port", "9200")
+    val essc = new SparkContext(conf)
+    val RDD = essc.esRDD("terminal-login-status/middleware")
+    RDD.collect().foreach(println)
+  }
+
 
 }
