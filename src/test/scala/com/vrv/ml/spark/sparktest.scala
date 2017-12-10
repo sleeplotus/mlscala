@@ -1,12 +1,20 @@
 package com.vrv.ml.spark
 
-import kafka.serializer.StringDecoder
+
+import com.twitter.bijection.Injection
+import com.twitter.bijection.avro.GenericAvroCodecs
+import kafka.serializer._
+import org.apache.avro.Schema
+import org.apache.avro.generic.GenericRecord
 import org.apache.spark.streaming._
+import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka._
 import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 import org.elasticsearch.spark._
 import org.junit.Assert.assertTrue
 import org.junit._
+
+import scala.collection.mutable.ListBuffer
 
 @Test
 class sparktest {
@@ -202,10 +210,47 @@ class sparktest {
     ssc.awaitTermination() // Wait for the computation to terminate
   }
 
-  case class NetWorkData()
+  object AvroUtils {
+    val USER_SCHEMA =
+      """{
+            "namespace": "capture.avro",
+            "type": "record",
+            "name": "Network",
+            "fields":
+            [
+                {"name": "src_ip", "type": "string"},
+                {"name": "src_port", "type": "int"},
+                {"name": "dst_ip", "type": "string"},
+                {"name": "dst_port", "type": "int"},
+                {"name": "protocol", "type": "string"},
+                {"name": "flag", "type": "string"},
+                {"name": "frame_length", "type": "int"},
+                {"name": "data_length", "type": "int"},
+                {"name": "seq", "type": "string"},
+                {"name": "nxtseq", "type": "string"},
+                {"name": "ack", "type": "string"},
+                {"name": "datetime", "type": "string"}
+            ]
+        }"""
+
+    val recordInjection: Injection[GenericRecord, Array[Byte]] = {
+      val parser: Schema.Parser = new Schema.Parser()
+      val schema: Schema = parser.parse(USER_SCHEMA)
+      GenericAvroCodecs.toBinary(schema)
+    }
+
+    def decodeMessage(message: (String, Array[Byte])): GenericRecord = {
+      recordInjection.invert(message._2).get
+    }
+
+    def test(directKafkaStream: InputDStream[(String, Array[Byte])]) = {
+      directKafkaStream.map(decodeMessage)
+    }
+
+  }
 
   @Test
-  def spark11 = {
+  def sparkKafkaStreaming = {
     sc.stop()
     val ssc = new StreamingContext(conf, Seconds(10))
     val kafkaParams = Map[String, String](
@@ -213,17 +258,51 @@ class sparktest {
       "auto.offset.reset" -> "smallest"
     )
     val topics = Set[String]("DemoTest01")
-    val directKafkaStream = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
+    val directKafkaStream = KafkaUtils.createDirectStream[String, Array[Byte], StringDecoder, DefaultDecoder](
       ssc,
       kafkaParams,
       topics
     )
-    directKafkaStream.map()
+    directKafkaStream.mapPartitions(messages => {
+      val USER_SCHEMA =
+        """{
+            "namespace": "capture.avro",
+            "type": "record",
+            "name": "Network",
+            "fields":
+            [
+                {"name": "src_ip", "type": "string"},
+                {"name": "src_port", "type": "int"},
+                {"name": "dst_ip", "type": "string"},
+                {"name": "dst_port", "type": "int"},
+                {"name": "protocol", "type": "string"},
+                {"name": "flag", "type": "string"},
+                {"name": "frame_length", "type": "int"},
+                {"name": "data_length", "type": "int"},
+                {"name": "seq", "type": "string"},
+                {"name": "nxtseq", "type": "string"},
+                {"name": "ack", "type": "string"},
+                {"name": "datetime", "type": "string"}
+            ]
+        }"""
+      val parser: Schema.Parser = new Schema.Parser()
+      val schema: Schema = parser.parse(USER_SCHEMA)
+      val recordInjection: Injection[GenericRecord, Array[Byte]] = GenericAvroCodecs.toBinary(schema)
+      var record: GenericRecord = null
+      val dataList = ListBuffer[GenericRecord]()
+      while (messages.hasNext) {
+        dataList.append(recordInjection.invert(messages.next._2).get)
+      }
+      dataList.toIterator
+    }).foreachRDD(rdd => {
+      rdd.foreach(record => {
+        println(s"====================${record.get("datetime")}")
+      });
+    });
 
     // Start the computation
     ssc.start()
     ssc.awaitTermination()
-
   }
 
   @Test
