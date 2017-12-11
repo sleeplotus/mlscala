@@ -25,8 +25,9 @@ class SparkKafkaStreaming {
       kafkaParams,
       topics
     )
+    import SparkKafkaStreaming._
     // Decode Avro-Encoded Kafka Data
-    directKafkaStream.map(message => SparkKafkaStreaming.recordInjection.invert(message._2).get)
+    directKafkaStream.map(message => recordInjection.invert(message._2).get)
       .foreachRDD(rdd => {
         rdd.foreach(record => {
           println(s"===============${record.get("protocol")}=====${record.get("datetime")}")
