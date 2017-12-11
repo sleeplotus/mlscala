@@ -2,7 +2,6 @@ package com.vrv.ml.spark
 
 import com.twitter.bijection.Injection
 import com.twitter.bijection.avro.GenericAvroCodecs
-import com.vrv.ml.spark.AvroUtils.USER_SCHEMA
 import kafka.serializer.{DefaultDecoder, StringDecoder}
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericRecord
@@ -14,7 +13,7 @@ import org.junit._
 
 import scala.collection.mutable.ListBuffer
 
-class AvroUtils extends Serializable {
+class AvroUtils {
   val USER_SCHEMA =
     """{
             "namespace": "capture.avro",
@@ -45,7 +44,7 @@ class AvroUtils extends Serializable {
   }
 }
 
-class SparkKafkaStreamingTest{
+class SparkKafkaStreamingTest {
   @Test
   def sparkKafkaStreaming = {
     val conf = new SparkConf().setAppName("SparkTest").setMaster("local[2]")
@@ -63,7 +62,8 @@ class SparkKafkaStreamingTest{
     directKafkaStream.mapPartitions(messages => {
       val dataList = ListBuffer[GenericRecord]()
       while (messages.hasNext) {
-        dataList.append(AvroUtils.recordInjection.invert(messages.next._2).get)
+        val avroUtils = new AvroUtils
+        dataList.append(avroUtils.recordInjection.invert(messages.next._2).get)
       }
       dataList.toIterator
     }).foreachRDD(rdd => {
