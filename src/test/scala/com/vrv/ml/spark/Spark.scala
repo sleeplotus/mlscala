@@ -17,7 +17,7 @@ import org.junit._
 import scala.collection.mutable.ListBuffer
 
 @Test
-class sparktest {
+class Spark {
 
   val conf = new SparkConf().setAppName("SparkTest").setMaster("local[2]")
   val sc = new SparkContext(conf)
@@ -236,7 +236,8 @@ class sparktest {
     val recordInjection: Injection[GenericRecord, Array[Byte]] = {
       val parser: Schema.Parser = new Schema.Parser()
       val schema: Schema = parser.parse(USER_SCHEMA)
-      GenericAvroCodecs.toBinary(schema)
+      val recordInjection: Injection[GenericRecord, Array[Byte]] = GenericAvroCodecs.toBinary(schema)
+      recordInjection
     }
 
     def decodeMessage(message: (String, Array[Byte])): GenericRecord = {
