@@ -10,8 +10,6 @@ import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.junit._
 
-import scala.collection.mutable.ListBuffer
-
 class SparkKafkaStreaming {
   @Test
   def sparkKafkaStreaming = {
