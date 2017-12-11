@@ -8,13 +8,9 @@ import org.apache.avro.generic.GenericRecord
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.junit._
 
-import scala.collection.mutable.ListBuffer
-
-class SparkKafkaStreaming {
-  @Test
-  def sparkKafkaStreaming = {
+object SparkStreamingTest {
+  def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("SparkTest").setMaster("local[2]")
     val ssc = new StreamingContext(conf, Seconds(10))
     val kafkaParams = Map[String, String](
@@ -28,23 +24,8 @@ class SparkKafkaStreaming {
       topics
     )
     // Decode Avro-Encoded Kafka Data
-    directKafkaStream.map(message => SparkKafkaStreaming.recordInjection.invert(message._2).get)
-      .foreachRDD(rdd => {
-        rdd.foreach(record => {
-          println(s"===============${record.get("protocol")}=====${record.get("datetime")}")
-        });
-      });
-
-    // Start the computation
-    ssc.start()
-    // Wait for the computation to terminate
-    ssc.awaitTermination()
-  }
-}
-
-object SparkKafkaStreaming {
-  val USER_SCHEMA =
-    """{
+    val USER_SCHEMA =
+      """{
             "namespace": "capture.avro",
             "type": "record",
             "name": "Network",
@@ -64,11 +45,19 @@ object SparkKafkaStreaming {
                 {"name": "datetime", "type": "string"}
             ]
         }"""
-
-  val recordInjection: Injection[GenericRecord, Array[Byte]] = {
     val parser: Schema.Parser = new Schema.Parser()
     val schema: Schema = parser.parse(USER_SCHEMA)
     val recordInjection: Injection[GenericRecord, Array[Byte]] = GenericAvroCodecs.toBinary(schema)
-    recordInjection
+    directKafkaStream.map(message => recordInjection.invert(message._2).get)
+      .foreachRDD(rdd => {
+        rdd.foreach(record => {
+          println(s"===============${record.get("protocol")}=====${record.get("datetime")}")
+        });
+      });
+
+    // Start the computation
+    ssc.start()
+    // Wait for the computation to terminate
+    ssc.awaitTermination()
   }
 }
