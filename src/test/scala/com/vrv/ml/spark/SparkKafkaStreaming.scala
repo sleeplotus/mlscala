@@ -21,7 +21,7 @@ class SparkKafkaStreaming {
       "metadata.broker.list" -> "192.168.2.118:9092",
       "auto.offset.reset" -> "smallest"
     )
-    val topics = Set[String]("DemoTest03")
+    val topics = Set[String]("DemoTest04")
     val directKafkaStream = KafkaUtils.createDirectStream[String, Array[Byte], StringDecoder, DefaultDecoder](
       ssc,
       kafkaParams,
