@@ -12,7 +12,7 @@ import org.junit._
 
 class SparkKafkaStreaming {
   @Test
-  def sparkKafkaStreaming = {
+  def sparkKafkaStreaming():Unit = {
     val conf = new SparkConf().setAppName("SparkTest").setMaster("local[2]")
     val ssc = new StreamingContext(conf, Seconds(10))
     val kafkaParams = Map[String, String](
@@ -31,8 +31,8 @@ class SparkKafkaStreaming {
       .foreachRDD(rdd => {
         rdd.foreach(record => {
           println(s"===============${record.get("protocol")}=====${record.get("datetime")}")
-        });
-      });
+        })
+      })
 
     // Start the computation
     ssc.start()
