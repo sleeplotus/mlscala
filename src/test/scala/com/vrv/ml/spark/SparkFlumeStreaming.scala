@@ -1,5 +1,6 @@
 package com.vrv.ml.spark
 
+import com.vrv.ml.streaming.SparkFlumeStreaming
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.flume._
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -19,6 +20,11 @@ class SparkFlumeStreaming {
     // Start
     ssc.start()
     ssc.awaitTermination()
+  }
+
+  @Test
+  def sparkFlume(): Unit = {
+    SparkFlumeStreaming.main(Array())
   }
 
 }

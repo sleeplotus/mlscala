@@ -11,7 +11,7 @@ object SparkFlumeStreaming {
   def sparkFlumeStreaming(): Unit = {
     val conf = new SparkConf().setAppName("SparkFlumeTest").setMaster("local[3]")
     val ssc = new StreamingContext(conf, Seconds(5))
-    val flumeStream = FlumeUtils.createPollingStream(ssc, "192.168.2.118", 9090, StorageLevel.MEMORY_ONLY)
+    val flumeStream = FlumeUtils.createPollingStream(ssc, "192.168.2.118", 9090, StorageLevel.MEMORY_AND_DISK)
     //    flumeStream.foreachRDD(rdd => rdd.foreach(println))
     //    flumeStream.print()
     flumeStream.count().map(cnt => "Received " + cnt + " flume events.").print()

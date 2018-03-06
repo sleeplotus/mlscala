@@ -143,6 +143,11 @@
     </property>
     
     <property>
+      <name>dfs.namenode.acls.enabled</name>
+      <value>true</value>
+    </property>
+    
+    <property>
       <name>dfs.namenode.audit.log.async</name>
       <value>true</value>
     </property>
@@ -221,7 +226,7 @@
     
     <property>
       <name>dfs.namenode.secondary.http-address</name>
-      <value>vmp003:50090</value>
+      <value>vmp006:50090</value>
     </property>
     
     <property>

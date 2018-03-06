@@ -197,7 +197,7 @@
     
     <property>
       <name>hbase.zookeeper.quorum</name>
-      <value>vmp002,vmp003,vmp005</value>
+      <value>vmp002,vmp004,vmp005,vmp006</value>
     </property>
     
     <property>
