@@ -16,7 +16,7 @@ class SparkFlumeStreaming {
     val flumeStream = FlumeUtils.createPollingStream(ssc, "192.168.2.118", 9090)
     //    flumeStream.foreachRDD(rdd => rdd.foreach(println))
     //    flumeStream.print()
-    flumeStream.count().map(cnt => "Received " + cnt + " flume events." ).print()
+    flumeStream.count().map(cnt => "Received " + cnt + " flume events.").print()
     // Start
     ssc.start()
     ssc.awaitTermination()
