@@ -8,18 +8,17 @@ import org.junit._
 import scala.util.matching.Regex
 import scala.util.matching.Regex.Match
 
-
-case class PersonEvent(name: String, age: Int) {
-  def getName: String = {
-    name
-  }
-
-  def getAge: Int = {
-    age
-  }
-}
-
 class EsperExample {
+
+  case class PersonEvent(name: String, age: Int) {
+    def getName: String = {
+      name
+    }
+
+    def getAge: Int = {
+      age
+    }
+  }
 
   @Test
   def javaObjectEvent(): Unit = {
