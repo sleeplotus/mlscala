@@ -5,6 +5,9 @@ import java.util
 import com.espertech.esper.client._
 import org.junit._
 
+import scala.util.matching.Regex
+import scala.util.matching.Regex.Match
+
 
 case class PersonEvent(name: String, age: Int) {
   def getName: String = {
@@ -180,9 +183,14 @@ class EsperExample {
       """create objectarray schema extraInfoFields as (address string, phone string, uid int);
         |create objectarray schema PersonEvent as (name string, age int, extraInfo extraInfoFields);
         |create objectarray schema PersonEvent as (name string, age int, address string)""".stripMargin
+    val eventTypeNameRegex: Regex = "schema\\s+(\\w+)\\s+as".r
+    var eventTypeNameMatch: Option[Match] = null
     schemas.split(";").foreach(schema => {
-      engine.getEPAdministrator.getConfiguration.removeEventType("PersonEvent", true)
-      engine.getEPAdministrator.createEPL(schema)
+      eventTypeNameMatch = eventTypeNameRegex.findFirstMatchIn(schema)
+      if (eventTypeNameMatch.isDefined) {
+        engine.getEPAdministrator.getConfiguration.removeEventType(eventTypeNameMatch.get.group(1), true)
+        engine.getEPAdministrator.createEPL(schema)
+      }
     })
     // Step Three: Create EPL Statements and Attach Callbacks
     val epl: String = "select address, age, name from PersonEvent"
