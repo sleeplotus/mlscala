@@ -197,9 +197,9 @@ class EsperExample {
     statement.addListener(
       new UpdateListener() {
         override def update(newEvents: Array[EventBean], oldEvents: Array[EventBean]): Unit = {
-          val name: String = newEvents(0).get("name").asInstanceOf[String]
-          val age: Int = newEvents(0).get("age").asInstanceOf[Int]
-          val address: String = newEvents(0).get("address").asInstanceOf[String]
+          val name = newEvents(0).get("name")
+          val age = newEvents(0).get("age")
+          val address = newEvents(0).get("address")
           println(s"String.format(Name: $name, age: $age, address: $address)")
         }
       }
