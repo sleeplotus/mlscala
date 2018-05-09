@@ -145,8 +145,9 @@ class EsperExample {
     // Step One: Obtain Engine Instance
     val engine: EPServiceProvider = EPServiceProviderManager.getDefaultProvider
     // Step Two: Provide Information on Input Events
-    val schemas: String ="""create objectarray schema extraInfoFields as (address string, phone string, uid int);
-                           |create objectarray schema PersonEvent as (name string, age int, extraInfo extraInfoFields)""".stripMargin
+    val schemas: String =
+      """create objectarray schema extraInfoFields as (address string, phone string, uid int);
+        |create objectarray schema PersonEvent as (name string, age int, extraInfo extraInfoFields)""".stripMargin
     schemas.split(";").foreach(schema => {
       engine.getEPAdministrator.createEPL(schema)
     })
@@ -169,6 +170,36 @@ class EsperExample {
     engine.getEPRuntime.sendEvent(Array[AnyRef]("Peter", Integer.valueOf(10), Array[AnyRef]("南京市", "13888888888", Integer.valueOf(2018))), "PersonEvent")
   }
 
+
+  @Test
+  def objectArrayNestedPropertiesArrayOverlapTest(): Unit = {
+    // Step One: Obtain Engine Instance
+    val engine: EPServiceProvider = EPServiceProviderManager.getDefaultProvider
+    // Step Two: Provide Information on Input Events
+    val schemas: String =
+      """create objectarray schema extraInfoFields as (address string, phone string, uid int);
+        |create objectarray schema PersonEvent as (name string, age int, extraInfo extraInfoFields);
+        |create objectarray schema PersonEvent as (name string, age int, address string)""".stripMargin
+    schemas.split(";").foreach(schema => {
+      engine.getEPAdministrator.getConfiguration.removeEventType("PersonEvent", true)
+      engine.getEPAdministrator.createEPL(schema)
+    })
+    // Step Three: Create EPL Statements and Attach Callbacks
+    val epl: String = "select address, age, name from PersonEvent"
+    val statement: EPStatement = engine.getEPAdministrator.createEPL(epl)
+    statement.addListener(
+      new UpdateListener() {
+        override def update(newEvents: Array[EventBean], oldEvents: Array[EventBean]): Unit = {
+          val name: String = newEvents(0).get("name").asInstanceOf[String]
+          val age: Int = newEvents(0).get("age").asInstanceOf[Int]
+          val address: String = newEvents(0).get("address").asInstanceOf[String]
+          println(s"String.format(Name: $name, age: $age, address: $address)")
+        }
+      }
+    )
+    // Step Four: Send Events
+    engine.getEPRuntime.sendEvent(Array[AnyRef]("Peter", Integer.valueOf(10), "南京市", Array[AnyRef]("南京市", "13888888888", Integer.valueOf(2018)), "13888888888"), "PersonEvent")
+  }
 }
 
 
