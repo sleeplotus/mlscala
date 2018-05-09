@@ -205,7 +205,7 @@ class EsperExample {
       }
     )
     // Step Four: Send Events
-    engine.getEPRuntime.sendEvent(Array[AnyRef]("Peter", Integer.valueOf(10), "南京市", Array[AnyRef]("南京市", "13888888888", Integer.valueOf(2018)), "13888888888"), "PersonEvent")
+    engine.getEPRuntime.sendEvent(Array[AnyRef]("Peter", "16", "南京市", Array[AnyRef]("南京市", "13888888888", Integer.valueOf(2018)), "13888888888"), "PersonEvent")
   }
 }
 
