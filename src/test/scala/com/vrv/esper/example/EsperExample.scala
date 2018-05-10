@@ -318,7 +318,7 @@ class EsperExample {
     })
     // Step Three: Create EPL Statements and Attach Callbacks
     var epl: String = "select address, age, name from PersonEvent"
-    var statement: EPStatement = engine.getEPAdministrator.createEPL(epl, "epl1")
+    var statement: EPStatement = engine.getEPAdministrator.createEPL(epl, "PersonEvent")
     statement.addListener(
       new UpdateListener() {
         override def update(newEvents: Array[EventBean], oldEvents: Array[EventBean]): Unit = {
@@ -330,9 +330,12 @@ class EsperExample {
       }
     )
     // Destroy EPL Statement
-    engine.getEPAdministrator.getStatement("epl1").destroy()
+    val personEventStatement = engine.getEPAdministrator.getStatement("PersonEvent")
+    if(personEventStatement != null){
+      personEventStatement.destroy()
+    }
     epl = "select address from PersonEvent"
-    statement = engine.getEPAdministrator.createEPL(epl, "epl1")
+    statement = engine.getEPAdministrator.createEPL(epl, "PersonEvent")
     statement.addListener(
       new UpdateListener() {
         override def update(newEvents: Array[EventBean], oldEvents: Array[EventBean]): Unit = {
