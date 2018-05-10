@@ -299,7 +299,7 @@ class EsperExample {
   }
 
   @Test
-  def mapArrayNestedPropertiesArrayOverlapTest(): Unit = {
+  def mapNestedPropertiesStatementDestroyTest(): Unit = {
     // Step One: Obtain Engine Instance
     val engine: EPServiceProvider = EPServiceProviderManager.getDefaultProvider
     // Step Two: Provide Information on Input Events
@@ -331,7 +331,7 @@ class EsperExample {
     )
     // Destroy EPL Statement
     val personEventStatement = engine.getEPAdministrator.getStatement("PersonEvent")
-    if(personEventStatement != null){
+    if (personEventStatement != null) {
       personEventStatement.destroy()
     }
     epl = "select address from PersonEvent"
@@ -350,6 +350,80 @@ class EsperExample {
     engine.getEPRuntime.sendEvent(event, "PersonEvent")
     // Step Five: Destroy engine
     engine.destroy()
+  }
+
+  @Test
+  def mapGroupTest(): Unit = {
+    // Step One: Obtain Engine Instance
+    val engine: EPServiceProvider = EPServiceProviderManager.getDefaultProvider
+    // Step Two: Provide Information on Input Events
+    val schema: String = "create map schema PersonEvent as (name string, age int)"
+    engine.getEPAdministrator.createEPL(schema)
+    // Step Three: Create EPL Statements and Attach Callbacks
+    val epl: String = "select name, age, sum(age) count from PersonEvent group by name"
+    val statement: EPStatement = engine.getEPAdministrator.createEPL(epl)
+    statement.addListener(
+      new UpdateListener() {
+        override def update(newEvents: Array[EventBean], oldEvents: Array[EventBean]): Unit = {
+          val name = newEvents(0).get("name")
+          val age = newEvents(0).get("age")
+          val count = newEvents(0).get("count")
+          println(s"String.format(Name: $name, Age: $age, count: $count)")
+        }
+      }
+    )
+    // Step Four: Send Events
+    val event: util.Map[String, Any] = new util.HashMap[String, Any]()
+    event.put("name", "Peter")
+    event.put("age", 10)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+    event.put("name", "Samy")
+    event.put("age", 11)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+    event.put("name", "Samy")
+    event.put("age", 12)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+  }
+
+  @Test
+  def mapContextTest(): Unit = {
+    // Step One: Obtain Engine Instance
+    val engine: EPServiceProvider = EPServiceProviderManager.getDefaultProvider
+    // Step Two: Provide Information on Input Events
+    val schema: String = "create map schema PersonEvent as (name string, age int)"
+    engine.getEPAdministrator.createEPL(schema)
+    // Step Three: Create EPL Statements and Attach Callbacks
+    val context: String = "create context SegmentedByName partition by name from PersonEvent"
+    val epl: String = "context SegmentedByName select name, age, sum(age) count from PersonEvent group by name"
+    engine.getEPAdministrator.createEPL(context)
+    val statement: EPStatement = engine.getEPAdministrator.createEPL(epl)
+    statement.addListener(
+      new UpdateListener() {
+        override def update(newEvents: Array[EventBean], oldEvents: Array[EventBean]): Unit = {
+          val name = newEvents(0).get("name")
+          val age = newEvents(0).get("age")
+          val count = newEvents(0).get("count")
+          println(s"String.format(Name: $name, Age: $age, count: $count)")
+        }
+      }
+    )
+    // Step Four: Send Events
+    val event: util.Map[String, Any] = new util.HashMap[String, Any]()
+    event.put("name", "Peter")
+    event.put("age", 10)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+    event.put("name", "Peter")
+    event.put("age", 12)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+    event.put("name", "Peter")
+    event.put("age", 16)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+    event.put("name", "Samy")
+    event.put("age", 11)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+    event.put("name", "Samy")
+    event.put("age", 12)
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
   }
 
 }
