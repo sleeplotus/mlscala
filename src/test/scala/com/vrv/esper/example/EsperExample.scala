@@ -426,6 +426,51 @@ class EsperExample {
     engine.getEPRuntime.sendEvent(event, "PersonEvent")
   }
 
+  @Test
+  def mapSchemaOneToManyRelationshipsTest(): Unit = {
+    // Step One: Obtain Engine Instance
+    val engine: EPServiceProvider = EPServiceProviderManager.getDefaultProvider
+    // Step Two: Provide Information on Input Events
+    val schemas: String =
+      """create map schema ExtraInfoFields as (address string, phone string, uid int);
+        |create map schema PersonEvent as (name string, age int, extraInfo ExtraInfoFields[])""".stripMargin
+    val eventTypeNameRegex: Regex = "schema\\s+(\\w+)\\s+as".r
+    var eventTypeNameMatch: Option[Match] = null
+    schemas.split(";").foreach(schema => {
+      eventTypeNameMatch = eventTypeNameRegex.findFirstMatchIn(schema)
+      if (eventTypeNameMatch.isDefined) {
+        engine.getEPAdministrator.getConfiguration.removeEventType(eventTypeNameMatch.get.group(1), true)
+        engine.getEPAdministrator.createEPL(schema)
+      }
+    })
+    // Step Three: Create EPL Statements and Attach Callbacks
+    var epl: String = "select age, name, extraInfo[0].address as address0, extraInfo[1].address as address1, extraInfo[2].address as address2 from PersonEvent where (extraInfo[0].address != '' and extraInfo[1].address != '') or extraInfo[2].address != ''"
+    var statement: EPStatement = engine.getEPAdministrator.createEPL(epl, "PersonEvent")
+    statement.addListener(
+      new UpdateListener() {
+        override def update(newEvents: Array[EventBean], oldEvents: Array[EventBean]): Unit = {
+          val name = newEvents(0).get("name")
+          val age = newEvents(0).get("age")
+          val address0 = newEvents(0).get("address0")
+          val address1 = newEvents(0).get("address1")
+          println(s"String.format(Name: $name, age: $age, address0: $address0, address0: $address1)")
+        }
+      }
+    )
+    // Step Four: Send Events
+    val event: util.Map[String, Any] = new util.HashMap[String, Any]()
+    event.put("name", "Peter")
+    event.put("age", 10)
+    val extraInfo0: util.Map[String, Any] = new util.HashMap[String, Any]()
+    extraInfo0.put("address","南京市")
+    val extraInfo1: util.Map[String, Any] = new util.HashMap[String, Any]()
+    extraInfo1.put("address","北京市")
+    event.put("extraInfo", Array(extraInfo0, extraInfo1))
+    engine.getEPRuntime.sendEvent(event, "PersonEvent")
+    // Step Five: Destroy engine
+    engine.destroy()
+  }
+
 }
 
 
