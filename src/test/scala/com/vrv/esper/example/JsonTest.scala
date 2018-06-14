@@ -14,7 +14,6 @@ class JsonTest {
     println(jsonStr)
     jsonStr = jsonStr.replaceAll("(\\\\)*\"\\[", "\\[")
     println(jsonStr)
-
   }
 
 }
