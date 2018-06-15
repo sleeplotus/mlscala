@@ -467,6 +467,7 @@ class EsperExample {
     extraInfo0.put("address","南京市")
     val extraInfo1: LinkedTreeMap[String, Any] = new LinkedTreeMap[String, Any]()
     extraInfo1.put("address","北京市")
+    // 将Map中的ArrayList<T>转换成对应的定长数组T[]，因为Esper无法识别ArrayList，必须用对应类型的定长数组类型才能识别。
     val array:util.ArrayList[LinkedTreeMap[String, Any]] = new util.ArrayList[LinkedTreeMap[String, Any]]
     array.add(extraInfo0)
     array.add(extraInfo1)
