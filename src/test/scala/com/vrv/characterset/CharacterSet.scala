@@ -78,5 +78,12 @@ class CharacterSet {
     println(new String(str.getBytes("GB2312"), "GB2312"))
   }
 
+  @Test
+  def characterSetTest3(): Unit = {
+    val str: String = "A"
+    println(str.getBytes())
+    println(str.getBytes("GB2312"))
+  }
+
 
 }
