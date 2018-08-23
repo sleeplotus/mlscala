@@ -38,8 +38,8 @@ class CharacterSet {
   @Test
   def characterSetTest2(): Unit = {
 
-    val str:String = new String("八月")
-    if(str.equals(new String(str.getBytes(), "UTF-8"))){
+    val str: String = new String("八月")
+    if (str.equals(new String(str.getBytes(), "UTF-8"))) {
       println(true)
     }
     str.getBytes()
@@ -56,11 +56,11 @@ class CharacterSet {
     in.close()
     val src = Source.fromBytes(bytes)
     val iter = src.getLines()
-    var line:String = ""
+    var line: String = ""
     while (iter.hasNext) {
       line = iter.next()
       println(line)
-      if(line.equals(new String(line.getBytes(), "UTF-8"))){
+      if (line.equals(new String(line.getBytes(), "UTF-8"))) {
         println(true)
       }
       println(new String(line.getBytes("UTF-8"), "UTF-8"))
@@ -70,8 +70,8 @@ class CharacterSet {
 
   @Test
   def gb2312(): Unit = {
-    val str:String = new String("八月")
-    if(str.equals(new String(str.getBytes(), "UTF-8"))){
+    val str: String = new String("八月")
+    if (str.equals(new String(str.getBytes(), "UTF-8"))) {
       println(true)
     }
     str.getBytes()
@@ -80,7 +80,10 @@ class CharacterSet {
 
   @Test
   def characterSetTest3(): Unit = {
-    val str: String = "A"
+    var str: String = "A"
+    println(str.getBytes())
+    println(str.getBytes("GB2312"))
+    str = "八月"
     println(str.getBytes())
     println(str.getBytes("GB2312"))
   }
