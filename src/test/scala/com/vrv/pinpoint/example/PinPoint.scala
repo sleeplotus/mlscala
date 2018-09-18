@@ -10,13 +10,16 @@ class PinPoint {
 
   @Test
   def agentInfo(): Unit = {
+    // Configuration
     val conf: Configuration = HBaseConfiguration.create()
     val ZOOKEEPER_QUORUM = "192.168.2.16"
     conf.set("hbase.zookeeper.quorum", ZOOKEEPER_QUORUM)
     val connection = ConnectionFactory.createConnection(conf)
+
+    // TableName
     val table = connection.getTable(TableName.valueOf(Bytes.toBytes("default:AgentInfo")))
 
-    //Scan example
+    // Scan example
     println("Scan Example:")
     val scan = table.getScanner(new Scan())
     val results = scan.iterator()
