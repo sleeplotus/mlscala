@@ -12,7 +12,16 @@ import org.junit._
 class PinPoint {
 
   /**
+    * AgentInfo
+    */
+  @Test
+  def agentInfo(): Unit = {
+    findTable[AgentInfo]("AgentInfo", new AgentInfoMapper())
+  }
+
+  /**
     * Finds table
+    *
     * @param tableName Table Name
     * @param rowMapper Row Mapper
     * @tparam T Generic Type
@@ -31,7 +40,7 @@ class PinPoint {
     println("Scan Example:")
     val resultScanner: ResultScanner = table.getScanner(new Scan())
     val results = resultScanner.iterator()
-    var rowNum:Int = 0
+    var rowNum: Int = 0
     while (results.hasNext) {
       rowNum += rowNum
       println(rowMapper.mapRow(results.next(), rowNum).toString)
@@ -44,35 +53,58 @@ class PinPoint {
   }
 
   /**
-    * AgentInfo
-    */
-  @Test
-  def agentInfo(): Unit = {
-    findTable[AgentInfo]("AgentInfo", new AgentInfoMapper())
-  }
-
-  /**
     * ApplicationIndex
     */
   @Test
   def applicationIndex(): Unit = {
-
+    findTableByOriginalRowMapper("ApplicationIndex", applicationIndexRowMapper)
   }
 
+  /**
+    * Finds table
+    *
+    * @param tableName Table Name
+    * @param rowMapper Row Mapper
+    */
+  def findTableByOriginalRowMapper(tableName: String, rowMapper: Result => Unit): Unit = {
+    // Configuration
+    val conf: Configuration = HBaseConfiguration.create()
+    val zookeeperQuorum = "192.168.2.16"
+    conf.set("hbase.zookeeper.quorum", zookeeperQuorum)
+    val connection = ConnectionFactory.createConnection(conf)
+
+    // TableName
+    val table = connection.getTable(TableName.valueOf(Bytes.toBytes("default:" + tableName)))
+
+    // Scan example
+    println("Scan Example:")
+    val resultScanner: ResultScanner = table.getScanner(new Scan())
+    val results = resultScanner.iterator()
+    var rowNum: Int = 0
+    while (results.hasNext) {
+      rowNum += rowNum
+      rowMapper(results.next)
+    }
+
+    // Releases resources
+    resultScanner.close()
+    table.close()
+    connection.close()
+  }
 
   /**
     * Map ApplicationIndex row
     *
     * @param result HBase查询结果
     */
-  def applicationIndexMapRow(result: Result): Unit = {
+  def applicationIndexRowMapper(result: Result): Unit = {
     val cells = result.rawCells()
-    println(s"RowKey：${Bytes.toString(result.getRow)}")
+    println(s"ApplicationName：${Bytes.toString(result.getRow)}")
     for (cell <- cells) {
       val col_name = Bytes.toString(CellUtil.cloneQualifier(cell))
-      val serviceTypeCode: Short = Bytes.toShort(CellUtil.cloneValue(cell));
-      println(s"ColumnName：$col_name")
-      println(s"ColumnValue：$serviceTypeCode")
+      val serviceTypeCode: Short = Bytes.toShort(CellUtil.cloneValue(cell))
+      println(s"AgentId：$col_name")
+      println(s"ServiceTypeCode：$serviceTypeCode")
     }
     println("=============================================================================")
   }
