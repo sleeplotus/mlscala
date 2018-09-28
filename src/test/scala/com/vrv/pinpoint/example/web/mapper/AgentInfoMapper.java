@@ -35,7 +35,6 @@ import org.apache.hadoop.hbase.client.Result;
  */
 public class AgentInfoMapper implements RowMapper<AgentInfo> {
 
-    @Override
     public AgentInfo mapRow(Result result, int rowNum) throws Exception {
 
         byte[] rowKey = result.getRow();

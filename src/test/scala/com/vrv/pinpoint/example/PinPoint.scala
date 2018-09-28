@@ -12,14 +12,6 @@ import org.junit._
 class PinPoint {
 
   /**
-    * AgentInfo
-    */
-  @Test
-  def agentInfo(): Unit = {
-    findTable[AgentInfo]("AgentInfo", new AgentInfoMapper())
-  }
-
-  /**
     * Finds table
     *
     * @param tableName Table Name
@@ -50,14 +42,6 @@ class PinPoint {
     resultScanner.close()
     table.close()
     connection.close()
-  }
-
-  /**
-    * ApplicationIndex
-    */
-  @Test
-  def applicationIndex(): Unit = {
-    findTableByOriginalRowMapper("ApplicationIndex", applicationIndexRowMapper)
   }
 
   /**
@@ -93,6 +77,25 @@ class PinPoint {
   }
 
   /**
+    * AgentInfo
+    */
+  @Test
+  def agentInfo(): Unit = {
+    // 参考：https://www.cnblogs.com/csyuan/p/6908303.html
+    // 可以显式地指定类型参数，或者如果方法参数中使用了泛型，那么编译器会根据传入的实参的类型参数隐式地自动推断出方法的类型参数。
+    //    findTable("AgentInfo", new AgentInfoMapper())
+    findTable[AgentInfo]("AgentInfo", new AgentInfoMapper())
+  }
+
+  /**
+    * ApplicationIndex
+    */
+  @Test
+  def applicationIndex(): Unit = {
+    findTableByOriginalRowMapper("ApplicationIndex", applicationIndexRowMapper)
+  }
+
+  /**
     * Map ApplicationIndex row
     *
     * @param result HBase查询结果
@@ -105,6 +108,31 @@ class PinPoint {
       val serviceTypeCode: Short = Bytes.toShort(CellUtil.cloneValue(cell))
       println(s"AgentId：$col_name")
       println(s"ServiceTypeCode：$serviceTypeCode")
+    }
+    println("=============================================================================")
+  }
+
+  /**
+    * AgentStatV2
+    */
+  @Test
+  def agentStatV2(): Unit = {
+    findTableByOriginalRowMapper("AgentStatV2", agentStatV2RowMapper)
+  }
+
+  /**
+    * Map ApplicationIndex row
+    *
+    * @param result HBase查询结果
+    */
+  def agentStatV2RowMapper(result: Result): Unit = {
+    val cells = result.rawCells()
+    println(s"RowKey：${Bytes.toString(result.getRow)}")
+    for (cell <- cells) {
+      val columnName = Bytes.toString(CellUtil.cloneQualifier(cell))
+      val columnValue = Bytes.toString(CellUtil.cloneValue(cell))
+      println(s"ColumnName：$columnName")
+      println(s"ColumnValue：$columnValue")
     }
     println("=============================================================================")
   }
