@@ -98,6 +98,11 @@
             <artifactId>hbase-client</artifactId>
             <version>1.1.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.sematext.hbasewd</groupId>
+            <artifactId>hbasewd</artifactId>
+            <version>0.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

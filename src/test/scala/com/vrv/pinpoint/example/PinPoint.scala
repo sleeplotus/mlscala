@@ -1,13 +1,28 @@
 package com.vrv.pinpoint.example
 
+import java.util
+import java.util.List
+
 import com.vrv.pinpoint.example.common.hbase.RowMapper
-import com.vrv.pinpoint.example.web.mapper.AgentInfoMapper
+import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec
+import com.vrv.pinpoint.example.web.vo.Range
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.{AgentStatDataPointCodec, AgentStatDecoder, JvmGcDecoder}
+import com.vrv.pinpoint.example.common.server.bo.serializer.stat.AgentStatHbaseOperationFactory
+import com.vrv.pinpoint.example.common.server.bo.stat.{ActiveTraceBo, JvmGcBo}
+import com.vrv.pinpoint.example.web.mapper.{AgentInfoMapper, RangeTimestampFilter, TimestampFilter}
+import com.vrv.pinpoint.example.web.mapper.stat.AgentStatMapperV2
 import com.vrv.pinpoint.example.web.vo.AgentInfo
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.{CellUtil, HBaseConfiguration, TableName}
+import java.util.List
+
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.v1.JvmGcCodecV1
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.v2.JvmGcCodecV2
 import org.junit._
+
+import scala.collection.mutable.ListBuffer
 
 class PinPoint {
 
@@ -117,7 +132,16 @@ class PinPoint {
     */
   @Test
   def agentStatV2(): Unit = {
-    findTableByOriginalRowMapper("AgentStatV2", agentStatV2RowMapper)
+    Map
+//    findTableByOriginalRowMapper("AgentStatV2", agentStatV2RowMapper)
+    val hbaseOperationFactory:AgentStatHbaseOperationFactory = new AgentStatHbaseOperationFactory
+    val jvmGcCodecs:List[AgentStatCodec[JvmGcBo]] = new ListBuffer[AgentStatCodec[JvmGcBo]]
+    jvmGcCodecs.add(new JvmGcCodecV1(new AgentStatDataPointCodec))
+    jvmGcCodecs.add(new JvmGcCodecV2(new AgentStatDataPointCodec))
+    val decoder:AgentStatDecoder[JvmGcBo] = new JvmGcDecoder()
+    val filter:TimestampFilter = new RangeTimestampFilter(new Range(150000000,160000000))
+    val mapper = new AgentStatMapperV2[JvmGcBo](hbaseOperationFactory, decoder, filter)
+    findTable("AgentInfo", mapper)
   }
 
   /**
