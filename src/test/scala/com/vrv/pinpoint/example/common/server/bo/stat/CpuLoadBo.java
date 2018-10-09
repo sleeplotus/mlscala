@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package com.vrv.pinpoint.example.common.server.bo;
-
-import com.vrv.pinpoint.example.common.server.bo.stat.AgentStatDataPoint;
-import com.vrv.pinpoint.example.common.server.bo.stat.AgentStatType;
+package com.vrv.pinpoint.example.common.server.bo.stat;
 
 /**
  * @author HyunGil Jeong

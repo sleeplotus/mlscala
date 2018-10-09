@@ -18,7 +18,7 @@ package com.vrv.pinpoint.example.common.server.bo.codec.stat.v2;
 
 
 import com.vrv.pinpoint.example.common.buffer.Buffer;
-import com.vrv.pinpoint.example.common.server.bo.CpuLoadBo;
+import com.vrv.pinpoint.example.common.server.bo.stat.CpuLoadBo;
 import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec;
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
