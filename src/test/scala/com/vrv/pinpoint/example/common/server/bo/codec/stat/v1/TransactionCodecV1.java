@@ -16,21 +16,16 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.v1;
 
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatDataPointCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.CodecFactory;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.v2.TransactionCodecV2;
-import com.navercorp.pinpoint.common.server.bo.stat.TransactionBo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.v2.TransactionCodecV2;
+import com.vrv.pinpoint.example.common.server.bo.stat.TransactionBo;
 
 /**
  * @author HyunGil Jeong
  */
-@Component("transactionCodecV1")
 public class TransactionCodecV1 extends AgentStatCodecV1<TransactionBo> {
 
-    @Autowired
     public TransactionCodecV1(AgentStatDataPointCodec codec) {
         super(new TransactionCodecFactory(codec));
     }
@@ -41,7 +36,6 @@ public class TransactionCodecV1 extends AgentStatCodecV1<TransactionBo> {
         private final AgentStatDataPointCodec codec;
 
         private TransactionCodecFactory(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 

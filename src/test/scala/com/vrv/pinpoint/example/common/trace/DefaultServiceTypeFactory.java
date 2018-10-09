@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Naver Corp.
+ * Copyright 2014 NAVER Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,21 @@
  * limitations under the License.
  */
 
-package com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy;
-
-
-
-import java.util.List;
+package com.vrv.pinpoint.example.common.trace;
 
 /**
- * @author HyunGil Jeong
+ * @author emeroad
  */
-public interface StrategyAnalyzer<T> {
+public class DefaultServiceTypeFactory extends ServiceTypeFactory {
 
-    EncodingStrategy<T> getBestStrategy();
+    static final ServiceTypeFactory INSTANCE = new DefaultServiceTypeFactory();
 
-    List<T> getValues();
+    private DefaultServiceTypeFactory() {
+    }
 
-    interface StrategyAnalyzerBuilder<T> {
 
-        StrategyAnalyzerBuilder<T> addValue(T value);
-
-        StrategyAnalyzer<T> build();
+    @Override
+    public ServiceType createServiceType(int code, String name, String desc, ServiceTypeProperty... properties) {
+        return new DefaultServiceType(code, name, desc, properties);
     }
 }

@@ -16,31 +16,28 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.v2;
 
-import com.navercorp.pinpoint.common.buffer.Buffer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatDataPointCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.CodecFactory;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.StrategyAnalyzer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.codec.strategy.EncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.serializer.stat.AgentStatUtils;
-import com.navercorp.pinpoint.common.server.bo.stat.JvmGcDetailedBo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+
+
+import com.vrv.pinpoint.example.common.buffer.Buffer;
+import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.EncodingStrategy;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.StrategyAnalyzer;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
+import com.vrv.pinpoint.example.common.server.bo.serializer.stat.AgentStatUtils;
+import com.vrv.pinpoint.example.common.server.bo.stat.JvmGcDetailedBo;
 
 import java.util.List;
 
 /**
  * @author HyunGil Jeong
  */
-@Component("jvmGcDetailedCodecV2")
 public class JvmGcDetailedCodecV2 extends AgentStatCodecV2<JvmGcDetailedBo> {
 
-    @Autowired
     public JvmGcDetailedCodecV2(AgentStatDataPointCodec codec) {
         super(new JvmGcDetailedCodecFactory(codec));
     }
@@ -51,7 +48,6 @@ public class JvmGcDetailedCodecV2 extends AgentStatCodecV2<JvmGcDetailedBo> {
         private final AgentStatDataPointCodec codec;
 
         private JvmGcDetailedCodecFactory(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 
@@ -84,7 +80,6 @@ public class JvmGcDetailedCodecV2 extends AgentStatCodecV2<JvmGcDetailedBo> {
         private final UnsignedLongEncodingStrategy.Analyzer.Builder metaspaceUsedStrategyAnalyzerBuilder = new UnsignedLongEncodingStrategy.Analyzer.Builder();
 
         public JvmGcDetailedCodecEncoder(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 
@@ -148,7 +143,6 @@ public class JvmGcDetailedCodecV2 extends AgentStatCodecV2<JvmGcDetailedBo> {
         private List<Long> metaspaceUseds;
 
         public JvmGcDetailedCodecDecoder(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 

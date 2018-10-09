@@ -16,30 +16,26 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.v2;
 
-import com.navercorp.pinpoint.common.buffer.Buffer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatDataPointCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.CodecFactory;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.StrategyAnalyzer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.codec.strategy.EncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.stat.TransactionBo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+import com.vrv.pinpoint.example.common.buffer.Buffer;
+import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.EncodingStrategy;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.StrategyAnalyzer;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
+import com.vrv.pinpoint.example.common.server.bo.stat.TransactionBo;
+import org.elasticsearch.hadoop.util.Assert;
 
 import java.util.List;
 
 /**
  * @author HyunGil Jeong
  */
-@Component("transactionCodecV2")
 public class TransactionCodecV2 extends AgentStatCodecV2<TransactionBo> {
 
-    @Autowired
     public TransactionCodecV2(AgentStatDataPointCodec codec) {
         super(new TransactionFactory(codec));
     }

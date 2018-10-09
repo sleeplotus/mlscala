@@ -16,17 +16,15 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.v2;
 
-import com.navercorp.pinpoint.common.buffer.Buffer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatDataPointCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.CodecFactory;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.BitCountingHeaderDecoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.serializer.stat.AgentStatDecodingContext;
-import com.navercorp.pinpoint.common.server.bo.stat.AgentStatDataPoint;
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.util.Assert;
+import com.vrv.pinpoint.example.common.buffer.Buffer;
+import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.BitCountingHeaderDecoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
+import com.vrv.pinpoint.example.common.server.bo.serializer.stat.AgentStatDecodingContext;
+import com.vrv.pinpoint.example.common.server.bo.stat.AgentStatDataPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +39,6 @@ public class AgentStatCodecV2<T extends AgentStatDataPoint> implements AgentStat
     private final CodecFactory<T> codecFactory;
 
     public AgentStatCodecV2(final CodecFactory<T> codecFactory) {
-        Assert.notNull(codecFactory, "codecFactory must not be null");
         this.codecFactory = codecFactory;
     }
 
@@ -52,7 +49,6 @@ public class AgentStatCodecV2<T extends AgentStatDataPoint> implements AgentStat
 
     @Override
     public void encodeValues(Buffer valueBuffer, List<T> statDataPointList) {
-        Assert.isTrue(!CollectionUtils.isEmpty(statDataPointList), "statDataPointList must not be empty");
 
         final int numValues = statDataPointList.size();
         valueBuffer.putVInt(numValues);

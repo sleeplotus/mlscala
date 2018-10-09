@@ -16,22 +16,19 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.v2;
 
-import com.navercorp.pinpoint.common.buffer.Buffer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatDataPointCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.BitCountingHeaderDecoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.*;
-import com.navercorp.pinpoint.common.server.bo.codec.strategy.EncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.serializer.stat.AgentStatDecodingContext;
-import com.navercorp.pinpoint.common.server.bo.stat.DataSourceBo;
-import com.navercorp.pinpoint.common.server.bo.stat.DataSourceListBo;
+import com.vrv.pinpoint.example.common.buffer.Buffer;
+import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.BitCountingHeaderDecoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.*;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.impl.StringEncodingStrategy;
+import com.vrv.pinpoint.example.common.server.bo.serializer.stat.AgentStatDecodingContext;
+import com.vrv.pinpoint.example.common.server.bo.stat.DataSourceBo;
+import com.vrv.pinpoint.example.common.server.bo.stat.DataSourceListBo;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,16 +36,13 @@ import java.util.List;
 /**
  * @author Taejin Koo
  */
-@Component("dataSourceCodecV2")
 public class DataSourceCodecV2 implements AgentStatCodec<DataSourceListBo> {
 
     private static final byte VERSION = 2;
 
     private final AgentStatDataPointCodec codec;
 
-    @Autowired
     public DataSourceCodecV2(AgentStatDataPointCodec codec) {
-        Assert.notNull(codec, "agentStatDataPointCodec must not be null");
         this.codec = codec;
     }
 

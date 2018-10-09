@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Naver Corp.
+ * Copyright 2014 NAVER Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,9 @@
  * limitations under the License.
  */
 
-package com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy;
+package com.vrv.pinpoint.example.common.trace;
 
 
-
-import java.util.List;
-
-/**
- * @author HyunGil Jeong
- */
-public interface StrategyAnalyzer<T> {
-
-    EncodingStrategy<T> getBestStrategy();
-
-    List<T> getValues();
-
-    interface StrategyAnalyzerBuilder<T> {
-
-        StrategyAnalyzerBuilder<T> addValue(T value);
-
-        StrategyAnalyzer<T> build();
-    }
+public enum SlotType {
+    FAST, NORMAL, SLOW, VERY_SLOW, ERROR, FAST_ERROR, NORMAL_ERROR, SLOW_ERROR, VERY_SLOW_ERROR
 }

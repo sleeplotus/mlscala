@@ -16,30 +16,25 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.v2;
 
-import com.navercorp.pinpoint.common.buffer.Buffer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatDataPointCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.CodecFactory;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.StrategyAnalyzer;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.codec.strategy.EncodingStrategy;
-import com.navercorp.pinpoint.common.server.bo.stat.ResponseTimeBo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+import com.vrv.pinpoint.example.common.buffer.Buffer;
+import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.ResponseTimeBo;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.EncodingStrategy;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.StrategyAnalyzer;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.UnsignedLongEncodingStrategy;
 
 import java.util.List;
 
 /**
  * @author Taejin Koo
  */
-@Component("responseTimeCodecV2")
 public class ResponseTimeCodecV2 extends AgentStatCodecV2<ResponseTimeBo> {
 
-    @Autowired
     public ResponseTimeCodecV2(AgentStatDataPointCodec codec) {
         super(new ResponseTimeFactory(codec));
     }
@@ -49,7 +44,6 @@ public class ResponseTimeCodecV2 extends AgentStatCodecV2<ResponseTimeBo> {
         private final AgentStatDataPointCodec codec;
 
         private ResponseTimeFactory(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 
@@ -76,7 +70,6 @@ public class ResponseTimeCodecV2 extends AgentStatCodecV2<ResponseTimeBo> {
         private final UnsignedLongEncodingStrategy.Analyzer.Builder maxAnalyzerBuilder = new UnsignedLongEncodingStrategy.Analyzer.Builder();
 
         public ResponseTimeCodecEncoder(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 
@@ -112,7 +105,6 @@ public class ResponseTimeCodecV2 extends AgentStatCodecV2<ResponseTimeBo> {
         private List<Long> maxs;
 
         public ResponseTimeCodecDecoder(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 

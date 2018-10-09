@@ -1,6 +1,7 @@
 package com.vrv.pinpoint.example
 
-import java.util.{Calendar, List}
+import java.util
+import java.util.Calendar
 
 import com.vrv.pinpoint.example.common.hbase.RowMapper
 import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec
@@ -131,10 +132,10 @@ class PinPoint {
     //    findTableByOriginalRowMapper("AgentStatV2", agentStatV2RowMapper)
     val timeRanger = getCurrentTimeRange
     val hbaseOperationFactory: AgentStatHbaseOperationFactory = new AgentStatHbaseOperationFactory
-    val jvmGcCodecs: List[AgentStatCodec[JvmGcBo]] = new ListBuffer[AgentStatCodec[JvmGcBo]]
+    val jvmGcCodecs: util.List[AgentStatCodec[JvmGcBo]] = new util.ArrayList[AgentStatCodec[JvmGcBo]]()
     jvmGcCodecs.add(new JvmGcCodecV1(new AgentStatDataPointCodec))
     jvmGcCodecs.add(new JvmGcCodecV2(new AgentStatDataPointCodec))
-    val decoder: AgentStatDecoder[JvmGcBo] = new JvmGcDecoder()
+    val decoder: AgentStatDecoder[JvmGcBo] = new JvmGcDecoder(jvmGcCodecs)
     val filter: TimestampFilter = new RangeTimestampFilter(new Range(timeRanger._1, timeRanger._2))
     val mapper = new AgentStatMapperV2[JvmGcBo](hbaseOperationFactory, decoder, filter)
     findTable("AgentInfo", mapper)

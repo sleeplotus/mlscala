@@ -19,6 +19,7 @@ package com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.impl;
 import com.vrv.pinpoint.example.common.buffer.Buffer;
 import com.vrv.pinpoint.example.common.server.bo.codec.ArithmeticOperation;
 import com.vrv.pinpoint.example.common.server.bo.codec.TypedBufferHandler;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.EncodingStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;

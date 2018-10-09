@@ -16,20 +16,16 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.v1;
 
-import com.navercorp.pinpoint.common.server.bo.codec.stat.AgentStatDataPointCodec;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.CodecFactory;
-import com.navercorp.pinpoint.common.server.bo.codec.stat.v2.CpuLoadCodecV2;
-import com.navercorp.pinpoint.common.server.bo.stat.CpuLoadBo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+import com.vrv.pinpoint.example.common.server.bo.CpuLoadBo;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.v2.CpuLoadCodecV2;
 
 /**
  * @author HyunGil Jeong
  */
 public class CpuLoadCodecV1 extends AgentStatCodecV1<CpuLoadBo> {
 
-    @Autowired
     public CpuLoadCodecV1(AgentStatDataPointCodec codec) {
         super(new CpuLoadCodecFactory(codec));
     }
@@ -40,7 +36,6 @@ public class CpuLoadCodecV1 extends AgentStatCodecV1<CpuLoadBo> {
         private final AgentStatDataPointCodec codec;
 
         private CpuLoadCodecFactory(AgentStatDataPointCodec codec) {
-            Assert.notNull(codec, "codec must not be null");
             this.codec = codec;
         }
 

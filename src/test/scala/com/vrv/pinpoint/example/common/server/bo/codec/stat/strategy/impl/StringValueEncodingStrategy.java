@@ -16,9 +16,9 @@
 
 package com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.impl;
 
-import com.navercorp.pinpoint.common.buffer.Buffer;
-import com.navercorp.pinpoint.common.server.bo.codec.StringTypedBufferHandler;
-import com.navercorp.pinpoint.common.server.bo.codec.strategy.EncodingStrategy;
+import com.vrv.pinpoint.example.common.buffer.Buffer;
+import com.vrv.pinpoint.example.common.server.bo.codec.StringTypedBufferHandler;
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.strategy.EncodingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
