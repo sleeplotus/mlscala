@@ -7,7 +7,7 @@ import org.junit.Test
 class StringMetaData {
 
   /**
-    * AgentInfo
+    * StringMetaData
     */
   @Test
   def stringMetaData(): Unit = {
