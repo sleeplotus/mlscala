@@ -9,7 +9,7 @@ class ApiMetaData {
     * ApiMetaData
     */
   @Test
-  def apiMetaData(): Unit = {
+  def decodeData(): Unit = {
     SchemaUtils.findTable("ApiMetaData", new ApiMetaDataMapper())
   }
 }

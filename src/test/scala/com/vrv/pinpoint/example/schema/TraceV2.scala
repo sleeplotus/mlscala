@@ -10,7 +10,7 @@ class TraceV2 {
     * TraceV2
     */
   @Test
-  def traceV2(): Unit = {
+  def decodeData(): Unit = {
     SchemaUtils.findTable("TraceV2", new SpanMapperV2())
   }
 
