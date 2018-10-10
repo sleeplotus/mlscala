@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.vrv.pinpoint.example.common.server.util;
+package com.vrv.pinpoint.example.common.util;
 
 /**
  * @author emeroad

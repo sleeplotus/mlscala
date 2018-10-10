@@ -20,8 +20,8 @@ import com.sematext.hbase.wd.RowKeyDistributorByHashPrefix;
 import com.vrv.pinpoint.example.common.PinpointConstants;
 import com.vrv.pinpoint.example.common.hbase.distributor.RangeOneByteSimpleHash;
 import com.vrv.pinpoint.example.common.server.bo.serializer.RowKeyEncoder;
-import com.vrv.pinpoint.example.common.server.util.TransactionId;
 import com.vrv.pinpoint.example.common.util.BytesUtils;
+import com.vrv.pinpoint.example.common.util.TransactionId;
 
 /**
  * @author Woonduk Kang(emeroad)

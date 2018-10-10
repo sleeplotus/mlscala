@@ -29,7 +29,7 @@ import com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.SpanDecoder
 import com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.SpanDecoderV0;
 import com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.SpanDecodingContext;
 import com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.TraceRowKeyDecoderV2;
-import com.vrv.pinpoint.example.common.server.util.TransactionId;
+import com.vrv.pinpoint.example.common.util.TransactionId;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;

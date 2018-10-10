@@ -11,7 +11,7 @@ class ApplicationIndex {
     * ApplicationIndex
     */
   @Test
-  def decodeData(): Unit = {
+  def mapRow(): Unit = {
     SchemaUtils.findTableByOriginalRowMapper("ApplicationIndex", applicationIndexRowMapper)
   }
 

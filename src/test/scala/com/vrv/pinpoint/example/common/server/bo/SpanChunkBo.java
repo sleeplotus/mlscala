@@ -1,6 +1,6 @@
 package com.vrv.pinpoint.example.common.server.bo;
 
-import com.vrv.pinpoint.example.common.server.util.TransactionId;
+import com.vrv.pinpoint.example.common.util.TransactionId;
 
 import java.util.ArrayList;
 import java.util.List;

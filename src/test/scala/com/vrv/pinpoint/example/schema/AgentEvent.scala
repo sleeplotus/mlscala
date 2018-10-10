@@ -9,7 +9,7 @@ class AgentEvent {
     * AgentInfo
     */
   @Test
-  def decodeData(): Unit = {
+  def mapRow(): Unit = {
     SchemaUtils.findTable("AgentEvent", new AgentEventMapper())
   }
 }

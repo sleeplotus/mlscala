@@ -10,7 +10,7 @@ class AgentLifeCycle {
     * AgentLifeCycle
     */
   @Test
-  def decodeData(): Unit = {
+  def mapRow(): Unit = {
     SchemaUtils.findTable("AgentLifeCycle", new AgentLifeCycleMapper())
   }
 

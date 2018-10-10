@@ -9,7 +9,7 @@ class SqlMetaData_Ver2 {
     * AgentInfo
     */
   @Test
-  def decodeData(): Unit = {
+  def mapRow(): Unit = {
     SchemaUtils.findTable("SqlMetaData_Ver2", new SqlMetaDataMapper())
   }
 }

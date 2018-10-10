@@ -1,6 +1,6 @@
 package com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2;
 
-import com.vrv.pinpoint.example.common.server.util.TransactionId;
+import com.vrv.pinpoint.example.common.util.TransactionId;
 
 /**
  * @author Woonduk Kang(emeroad)

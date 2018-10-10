@@ -10,7 +10,7 @@ class StringMetaData {
     * StringMetaData
     */
   @Test
-  def decodeData(): Unit = {
+  def mapRow(): Unit = {
     SchemaUtils.findTable("StringMetaData", new StringMetaDataMapper())
   }
 }

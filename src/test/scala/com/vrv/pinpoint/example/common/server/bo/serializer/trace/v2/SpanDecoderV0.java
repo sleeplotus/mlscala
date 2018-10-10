@@ -6,14 +6,12 @@ import com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.bitfield.Sp
 import com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.bitfield.SpanEventBitField;
 import com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.bitfield.SpanEventQualifierBitField;
 import com.vrv.pinpoint.example.common.server.util.AnnotationTranscoder;
-import com.vrv.pinpoint.example.common.server.util.TransactionId;
+import com.vrv.pinpoint.example.common.util.TransactionId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.vrv.pinpoint.example.common.server.bo.serializer.trace.v2.bitfield.ServiceTypeEncodingStrategy.PREV_EQUALS;
 
 /**
  * @author Woonduk Kang(emeroad)
