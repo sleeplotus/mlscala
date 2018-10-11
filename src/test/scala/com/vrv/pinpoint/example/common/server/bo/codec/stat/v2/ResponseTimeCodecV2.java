@@ -20,7 +20,7 @@ import com.vrv.pinpoint.example.common.buffer.Buffer;
 import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec;
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.AgentStatDataPointCodec;
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.CodecFactory;
-import com.vrv.pinpoint.example.common.server.bo.codec.stat.ResponseTimeBo;
+import com.vrv.pinpoint.example.common.server.bo.stat.ResponseTimeBo;
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderDecoder;
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.AgentStatHeaderEncoder;
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.header.BitCountingHeaderEncoder;
