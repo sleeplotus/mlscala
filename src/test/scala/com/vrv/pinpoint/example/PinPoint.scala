@@ -138,7 +138,7 @@ class PinPoint {
     val decoder: AgentStatDecoder[JvmGcBo] = new JvmGcDecoder(jvmGcCodecs)
     val filter: TimestampFilter = new RangeTimestampFilter(new Range(timeRanger._1, timeRanger._2))
     val mapper = new AgentStatMapperV2[JvmGcBo](hbaseOperationFactory, decoder, filter)
-    findTable("AgentInfo", mapper)
+    findTable("AgentStatV2", mapper)
   }
 
   /**
@@ -149,8 +149,9 @@ class PinPoint {
   def getCurrentTimeRange(): Tuple2[Long, Long] = {
     val calender: Calendar = Calendar.getInstance()
     val endTime = calender.getTime.getTime
-    calender.add(Calendar.MINUTE, -60)
+    calender.add(Calendar.DAY_OF_YEAR, -2)
     val startTime = calender.getTime.getTime
+    println(s"startTime=$startTime-->endTime=$endTime")
     (startTime, endTime)
   }
 
