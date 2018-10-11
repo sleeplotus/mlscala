@@ -80,13 +80,18 @@ public class AgentStatMapperV2<T extends AgentStatDataPoint> implements AgentSta
                 decodingContext.setAgentId(agentId);
                 decodingContext.setBaseTimestamp(baseTimestamp);
                 decodingContext.setTimestampDelta(timestampDelta);
-                List<T> candidates = this.decoder.decodeValue(valueBuffer, decodingContext);
-                for (T candidate : candidates) {
-                    if (filter(candidate)) {
-                        continue;
+                try{
+                    List<T> candidates = this.decoder.decodeValue(valueBuffer, decodingContext);
+                    for (T candidate : candidates) {
+                        if (filter(candidate)) {
+                            continue;
+                        }
+                        dataPoints.add(candidate);
                     }
-                    dataPoints.add(candidate);
+                }catch (Throwable e){
+//                    e.printStackTrace();
                 }
+
             }
         }
         // Reverse sort as timestamp is stored in a reversed order.

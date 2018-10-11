@@ -47,7 +47,7 @@ class AgentStatV2 {
   def getCurrentTimeRange(): Tuple2[Long, Long] = {
     val calender: Calendar = Calendar.getInstance()
     val endTime = calender.getTime.getTime
-    calender.add(Calendar.DAY_OF_YEAR, -2)
+    calender.add(Calendar.DAY_OF_YEAR, -10)
     val startTime = calender.getTime.getTime
     println(s"startTime=$startTime-->endTime=$endTime")
     (startTime, endTime)
