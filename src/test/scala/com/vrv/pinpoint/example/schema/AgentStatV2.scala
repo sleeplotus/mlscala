@@ -5,7 +5,7 @@ import java.util.{ArrayList, Calendar, List}
 
 import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec
 import com.vrv.pinpoint.example.common.server.bo.codec.stat._
-import com.vrv.pinpoint.example.common.server.bo.codec.stat.v1.{ActiveTraceCodecV1, CpuLoadCodecV1, JvmGcCodecV1}
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.v1.{ActiveTraceCodecV1, CpuLoadCodecV1, JvmGcCodecV1, JvmGcDetailedCodecV1}
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.v2._
 import com.vrv.pinpoint.example.common.server.bo.serializer.stat.AgentStatHbaseOperationFactory
 import com.vrv.pinpoint.example.common.server.bo.stat._
@@ -128,6 +128,26 @@ class AgentStatV2 {
     val filter: TimestampFilter = new RangeTimestampFilter(new Range(timeRanger._1, timeRanger._2))
     // Mapper
     val mapper = new AgentStatMapperV2[JvmGcBo](hbaseOperationFactory, decoder, filter)
+    SchemaUtils.findTable(AGENT_STAT_VER2_STR, mapper)
+  }
+
+  /**
+    * JvmGcDetailedBo
+    */
+  @Test
+  def jvmGcDetailedBoMapRow(): Unit = {
+    val timeRanger = getCurrentTimeRange
+    val hbaseOperationFactory: AgentStatHbaseOperationFactory = new AgentStatHbaseOperationFactory
+    // Codecs
+    val codecs: List[AgentStatCodec[JvmGcDetailedBo]] = new ArrayList[AgentStatCodec[JvmGcDetailedBo]]()
+    codecs.add(new JvmGcDetailedCodecV1(new AgentStatDataPointCodec))
+    codecs.add(new JvmGcDetailedCodecV2(new AgentStatDataPointCodec))
+    // Decoder
+    val decoder: AgentStatDecoder[JvmGcDetailedBo] = new JvmGcDetailedDecoder(codecs)
+    // Filter
+    val filter: TimestampFilter = new RangeTimestampFilter(new Range(timeRanger._1, timeRanger._2))
+    // Mapper
+    val mapper = new AgentStatMapperV2[JvmGcDetailedBo](hbaseOperationFactory, decoder, filter)
     SchemaUtils.findTable(AGENT_STAT_VER2_STR, mapper)
   }
 
