@@ -5,7 +5,7 @@ import java.util.{ArrayList, Calendar, List}
 
 import com.vrv.pinpoint.example.common.server.bo.codec.AgentStatCodec
 import com.vrv.pinpoint.example.common.server.bo.codec.stat._
-import com.vrv.pinpoint.example.common.server.bo.codec.stat.v1.{ActiveTraceCodecV1, CpuLoadCodecV1, JvmGcCodecV1, JvmGcDetailedCodecV1}
+import com.vrv.pinpoint.example.common.server.bo.codec.stat.v1._
 import com.vrv.pinpoint.example.common.server.bo.codec.stat.v2._
 import com.vrv.pinpoint.example.common.server.bo.serializer.stat.AgentStatHbaseOperationFactory
 import com.vrv.pinpoint.example.common.server.bo.stat._
@@ -37,20 +37,6 @@ class AgentStatV2 {
     // Mapper
     val mapper = new AgentStatMapperV2[ActiveTraceBo](hbaseOperationFactory, decoder, filter)
     SchemaUtils.findTable(AGENT_STAT_VER2_STR, mapper)
-  }
-
-  /**
-    * Retrieves the current time
-    *
-    * @return
-    */
-  def getCurrentTimeRange(): Tuple2[Long, Long] = {
-    val calender: Calendar = Calendar.getInstance()
-    val endTime = calender.getTime.getTime
-    calender.add(Calendar.DAY_OF_YEAR, -10)
-    val startTime = calender.getTime.getTime
-    println(s"startTime=$startTime-->endTime=$endTime")
-    (startTime, endTime)
   }
 
   /**
@@ -132,6 +118,20 @@ class AgentStatV2 {
   }
 
   /**
+    * Retrieves the current time
+    *
+    * @return
+    */
+  def getCurrentTimeRange(): Tuple2[Long, Long] = {
+    val calender: Calendar = Calendar.getInstance()
+    val endTime = calender.getTime.getTime
+    calender.add(Calendar.DAY_OF_YEAR, -10)
+    val startTime = calender.getTime.getTime
+    println(s"startTime=$startTime-->endTime=$endTime")
+    (startTime, endTime)
+  }
+
+  /**
     * JvmGcDetailedBo
     */
   @Test
@@ -151,5 +151,43 @@ class AgentStatV2 {
     SchemaUtils.findTable(AGENT_STAT_VER2_STR, mapper)
   }
 
+  /**
+    * ResponseTimeBo
+    */
+  @Test
+  def responseTimeBoMapRow(): Unit = {
+    val timeRanger = getCurrentTimeRange
+    val hbaseOperationFactory: AgentStatHbaseOperationFactory = new AgentStatHbaseOperationFactory
+    // Codecs
+    val codecs: List[AgentStatCodec[ResponseTimeBo]] = new ArrayList[AgentStatCodec[ResponseTimeBo]]()
+    codecs.add(new ResponseTimeCodecV2(new AgentStatDataPointCodec))
+    // Decoder
+    val decoder: AgentStatDecoder[ResponseTimeBo] = new ResponseTimeDecoder(codecs)
+    // Filter
+    val filter: TimestampFilter = new RangeTimestampFilter(new Range(timeRanger._1, timeRanger._2))
+    // Mapper
+    val mapper = new AgentStatMapperV2[ResponseTimeBo](hbaseOperationFactory, decoder, filter)
+    SchemaUtils.findTable(AGENT_STAT_VER2_STR, mapper)
+  }
+
+  /**
+    * TransactionBo
+    */
+  @Test
+  def transactionBoMapRow(): Unit = {
+    val timeRanger = getCurrentTimeRange
+    val hbaseOperationFactory: AgentStatHbaseOperationFactory = new AgentStatHbaseOperationFactory
+    // Codecs
+    val codecs: List[AgentStatCodec[TransactionBo]] = new ArrayList[AgentStatCodec[TransactionBo]]()
+    codecs.add(new TransactionCodecV1(new AgentStatDataPointCodec))
+    codecs.add(new TransactionCodecV2(new AgentStatDataPointCodec))
+    // Decoder
+    val decoder: AgentStatDecoder[TransactionBo] = new TransactionDecoder(codecs)
+    // Filter
+    val filter: TimestampFilter = new RangeTimestampFilter(new Range(timeRanger._1, timeRanger._2))
+    // Mapper
+    val mapper = new AgentStatMapperV2[TransactionBo](hbaseOperationFactory, decoder, filter)
+    SchemaUtils.findTable(AGENT_STAT_VER2_STR, mapper)
+  }
 
 }
