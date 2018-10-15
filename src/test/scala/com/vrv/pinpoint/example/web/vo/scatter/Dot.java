@@ -96,12 +96,12 @@ public class Dot {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(64);
-        sb.append("Dot{");
-        sb.append("transactionId=").append(getTransactionIdAsString());
-        sb.append(", acceptedTime=").append(acceptedTime);
-        sb.append(", elapsedTime=").append(elapsedTime);
-        sb.append(", exceptionCode=").append(exceptionCode);
-        sb.append(", agentId='").append(agentId).append('\'');
+        sb.append("{");
+        sb.append("transactionId:'").append(getTransactionIdAsString()+"'");
+        sb.append(", acceptedTime:").append(acceptedTime);
+        sb.append(", elapsedTime:").append(elapsedTime);
+        sb.append(", exceptionCode:").append(exceptionCode);
+        sb.append(", agentId:'").append(agentId).append('\'');
         sb.append('}');
         return sb.toString();
     }

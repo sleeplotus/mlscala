@@ -99,11 +99,11 @@ public class StringMetaDataBo {
 
     @Override
     public String toString() {
-        return "StringMetaDataBo{" +
-                "agentId='" + agentId + '\'' +
-                ", startTime=" + startTime +
-                ", stringId=" + stringId +
-                ", stringValue='" + stringValue + '\'' +
+        return "{" +
+                "agentId:'" + agentId + '\'' +
+                ", startTime:" + startTime +
+                ", stringId:" + stringId +
+                ", stringValue:'" + stringValue + '\'' +
                 '}';
     }
 

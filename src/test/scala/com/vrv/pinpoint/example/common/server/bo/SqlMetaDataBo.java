@@ -115,11 +115,11 @@ public class SqlMetaDataBo {
 
     @Override
     public String toString() {
-        return "SqlMetaDataBo{" +
-                "agentId='" + agentId + '\'' +
-                ", startTime=" + startTime +
-                ", sqlId=" + sqlId +
-                ", sql='" + sql + '\'' +
+        return "{" +
+                "agentId:'" + agentId + '\'' +
+                ", startTime:" + startTime +
+                ", sqlId:" + sqlId +
+                ", sql:'" + sql + '\'' +
                 '}';
     }
 

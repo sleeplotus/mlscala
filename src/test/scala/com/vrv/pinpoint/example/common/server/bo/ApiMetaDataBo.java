@@ -128,12 +128,12 @@ public class ApiMetaDataBo {
 
     @Override
     public String toString() {
-        return "ApiMetaDataBo{" +
-                "agentId='" + agentId + '\'' +
-                ", apiId=" + apiId +
-                ", startTime=" + startTime +
-                ", apiInfo='" + apiInfo + '\'' +
-                ", lineNumber=" + lineNumber +
+        return "{" +
+                "agentId:'" + agentId + '\'' +
+                ", apiId:" + apiId +
+                ", startTime:" + startTime +
+                ", apiInfo:'" + apiInfo + '\'' +
+                ", lineNumber:" + lineNumber +
                 '}';
     }
 }

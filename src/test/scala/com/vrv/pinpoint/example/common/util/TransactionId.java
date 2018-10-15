@@ -76,10 +76,10 @@ public class TransactionId {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TransactionId{");
-        sb.append("agentId='").append(agentId).append('\'');
-        sb.append(", agentStartTime=").append(agentStartTime);
-        sb.append(", transactionSequence=").append(transactionSequence);
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("agentId:'").append(agentId).append('\'');
+        sb.append(", agentStartTime:").append(agentStartTime);
+        sb.append(", transactionSequence:").append(transactionSequence);
         sb.append('}');
         return sb.toString();
     }

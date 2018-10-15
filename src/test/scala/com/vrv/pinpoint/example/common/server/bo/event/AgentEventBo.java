@@ -130,12 +130,13 @@ public class AgentEventBo {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("AgentEventBo{");
-        sb.append("version=").append(this.version);
-        sb.append(", agentId='").append(this.agentId).append('\'');
-        sb.append(", startTimestamp=").append(this.startTimestamp);
-        sb.append(", eventTimestamp=").append(this.eventTimestamp);
-        sb.append(", eventType='").append(this.getEventType().getDesc()).append('\'');
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("version:").append(this.version);
+        sb.append(", agentId:'").append(this.agentId).append('\'');
+        sb.append(", startTimestamp:").append(this.startTimestamp);
+        sb.append(", eventTimestamp:").append(this.eventTimestamp);
+        sb.append(", eventType:'").append(this.getEventType().getDesc()).append('\'');
+        sb.append("}");
         return sb.toString();
     }
 

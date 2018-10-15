@@ -342,35 +342,35 @@ public class SpanBo implements Event, BasicSpan {
 
     @Override
     public String toString() {
-        return "SpanBo{" +
-                "version=" + version +
-                ", agentId='" + agentId + '\'' +
-                ", applicationId='" + applicationId + '\'' +
-                ", agentStartTime=" + agentStartTime +
-                ", transactionId=" + transactionId +
-                ", spanId=" + spanId +
-                ", parentSpanId=" + parentSpanId +
-                ", parentApplicationId='" + parentApplicationId + '\'' +
-                ", parentApplicationServiceType=" + parentApplicationServiceType +
-                ", startTime=" + startTime +
-                ", elapsed=" + elapsed +
-                ", rpc='" + rpc + '\'' +
-                ", serviceType=" + serviceType +
-                ", endPoint='" + endPoint + '\'' +
-                ", apiId=" + apiId +
-                ", annotationBoList=" + annotationBoList +
-                ", flag=" + flag +
-                ", errCode=" + errCode +
-                ", spanEventBoList=" + spanEventBoList +
-                ", collectorAcceptTime=" + collectorAcceptTime +
-                ", hasException=" + hasException +
-                ", exceptionId=" + exceptionId +
-                ", exceptionMessage='" + exceptionMessage + '\'' +
-                ", exceptionClass='" + exceptionClass + '\'' +
-                ", applicationServiceType=" + applicationServiceType +
-                ", acceptorHost='" + acceptorHost + '\'' +
-                ", remoteAddr='" + remoteAddr + '\'' +
-                ", loggingTransactionInfo=" + loggingTransactionInfo +
+        return "{" +
+                "version:" + version +
+                ", agentId:'" + agentId + '\'' +
+                ", applicationId:'" + applicationId + '\'' +
+                ", agentStartTime:" + agentStartTime +
+                ", transactionId:" + transactionId +
+                ", spanId:" + spanId +
+                ", parentSpanId:" + parentSpanId +
+                ", parentApplicationId:'" + parentApplicationId + '\'' +
+                ", parentApplicationServiceType:" + parentApplicationServiceType +
+                ", startTime:" + startTime +
+                ", elapsed:" + elapsed +
+                ", rpc:'" + rpc + '\'' +
+                ", serviceType:" + serviceType +
+                ", endPoint:'" + endPoint + '\'' +
+                ", apiId:" + apiId +
+                ", annotationBoList:" + annotationBoList +
+                ", flag:" + flag +
+                ", errCode:" + errCode +
+                ", spanEventBoList:" + spanEventBoList +
+                ", collectorAcceptTime:" + collectorAcceptTime +
+                ", hasException:" + hasException +
+                ", exceptionId:" + exceptionId +
+                ", exceptionMessage:'" + exceptionMessage + '\'' +
+                ", exceptionClass:'" + exceptionClass + '\'' +
+                ", applicationServiceType:" + applicationServiceType +
+                ", acceptorHost:'" + acceptorHost + '\'' +
+                ", remoteAddr:'" + remoteAddr + '\'' +
+                ", loggingTransactionInfo:" + loggingTransactionInfo +
                 '}';
     }
 }

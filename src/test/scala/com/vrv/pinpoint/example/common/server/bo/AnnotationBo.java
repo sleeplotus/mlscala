@@ -58,10 +58,10 @@ public class AnnotationBo {
 
     @Override
     public String toString() {
-        return "AnnotationBo{" +
-                "key=" + key +
-                ", value=" + value +
-                ", isAuthorized=" + isAuthorized +
+        return "{" +
+                "key:" + key +
+                ", value:'" + value + "'" +
+                ", isAuthorized:" + isAuthorized +
                 '}';
     }
 }
