@@ -22,13 +22,15 @@ class ApplicationIndex {
     */
   def applicationIndexRowMapper(result: Result): Unit = {
     val cells = result.rawCells()
-    println(s"ApplicationName：${Bytes.toString(result.getRow)}")
+    val sb:StringBuilder = new StringBuilder
+    sb.append(s"{applicationName:'${Bytes.toString(result.getRow)}',agents:[")
     for (cell <- cells) {
       val col_name = Bytes.toString(CellUtil.cloneQualifier(cell))
       val serviceTypeCode: Short = Bytes.toShort(CellUtil.cloneValue(cell))
-      println(s"AgentId：$col_name")
-      println(s"ServiceTypeCode：$serviceTypeCode")
+      sb.append(s"{agentId:'$col_name',")
+      sb.append(s"serviceTypeCode:$serviceTypeCode},")
     }
-    println("=============================================================================")
+    sb.append("]}")
+    println(sb)
   }
 }

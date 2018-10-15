@@ -165,17 +165,17 @@ public class JvmGcBo implements AgentStatDataPoint {
 
     @Override
     public String toString() {
-        return "JvmGcBo{" +
-                "agentId='" + agentId + '\'' +
-                ", startTimestamp=" + startTimestamp +
-                ", timestamp=" + timestamp +
-                ", gcType=" + gcType +
-                ", heapUsed=" + heapUsed +
-                ", heapMax=" + heapMax +
-                ", nonHeapUsed=" + nonHeapUsed +
-                ", nonHeapMax=" + nonHeapMax +
-                ", gcOldCount=" + gcOldCount +
-                ", gcOldTime=" + gcOldTime +
+        return "{" +
+                "agentId:'" + agentId + '\'' +
+                ", startTimestamp:" + startTimestamp +
+                ", timestamp:" + timestamp +
+                ", gcType:'" + gcType + '\'' +
+                ", heapUsed:" + heapUsed +
+                ", heapMax:" + heapMax +
+                ", nonHeapUsed:" + nonHeapUsed +
+                ", nonHeapMax:" + nonHeapMax +
+                ", gcOldCount:" + gcOldCount +
+                ", gcOldTime:" + gcOldTime +
                 '}';
     }
 }
