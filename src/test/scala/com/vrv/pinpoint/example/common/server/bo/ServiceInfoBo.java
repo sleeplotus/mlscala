@@ -58,9 +58,14 @@ public class ServiceInfoBo {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("ServiceInfoBo{");
-        sb.append("serviceName='").append(this.serviceName).append('\'');
-        sb.append(", serviceLibs=").append(this.serviceLibs).append('}');
+        StringBuilder sb = new StringBuilder("{");
+        sb.append("serviceName:'").append(this.serviceName).append('\'');
+        sb.append(", serviceLibs:[");
+        for (String serviceLib: this.serviceLibs){
+            sb.append("'"+serviceLib+"',");
+        }
+        sb.append("]");
+        sb.append('}');
         return sb.toString();
     }
 

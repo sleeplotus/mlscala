@@ -203,21 +203,21 @@ public class AgentInfo {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("AgentInfo{");
-        sb.append("applicationName='").append(applicationName).append('\'');
-        sb.append(", agentId='").append(agentId).append('\'');
-        sb.append(", startTimestamp=").append(startTimestamp);
-        sb.append(", hostName='").append(hostName).append('\'');
-        sb.append(", ip='").append(ip).append('\'');
-        sb.append(", ports='").append(ports).append('\'');
-        sb.append(", serviceTypeCode=").append(serviceTypeCode);
-        sb.append(", pid=").append(pid);
-        sb.append(", vmVersion='").append(vmVersion).append('\'');
-        sb.append(", agentVersion='").append(agentVersion).append('\'');
-        sb.append(", serverMetaData=").append(serverMetaData);
-        sb.append(", jvmInfo=").append(jvmInfo);
-        sb.append(", initialStartTimestamp=").append(initialStartTimestamp);
-        sb.append(", status=").append(status);
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("applicationName:'").append(applicationName).append('\'');
+        sb.append(", agentId:'").append(agentId).append('\'');
+        sb.append(", startTimestamp:").append(startTimestamp);
+        sb.append(", hostName:'").append(hostName).append('\'');
+        sb.append(", ip:'").append(ip).append('\'');
+        sb.append(", ports:'").append(ports).append('\'');
+        sb.append(", serviceTypeCode:").append(serviceTypeCode);
+        sb.append(", pid:").append(pid);
+        sb.append(", vmVersion:'").append(vmVersion).append('\'');
+        sb.append(", agentVersion:'").append(agentVersion).append('\'');
+        sb.append(", serverMetaData:").append(serverMetaData);
+        sb.append(", jvmInfo:").append(jvmInfo);
+        sb.append(", initialStartTimestamp:").append(initialStartTimestamp);
+        sb.append(", status:").append(status);
         sb.append('}');
         return sb.toString();
     }

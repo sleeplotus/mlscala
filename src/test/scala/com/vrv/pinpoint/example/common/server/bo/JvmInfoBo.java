@@ -89,10 +89,10 @@ public class JvmInfoBo {
 
     @Override
     public String toString() {
-        return "JvmInfoBo{" +
-                "version=" + version +
-                ", jvmVersion='" + jvmVersion + '\'' +
-                ", gcTypeName='" + gcTypeName + '\'' +
+        return "{" +
+                "version:" + version +
+                ", jvmVersion:'" + jvmVersion + '\'' +
+                ", gcTypeName:'" + gcTypeName + '\'' +
                 '}';
     }
 }

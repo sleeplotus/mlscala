@@ -73,10 +73,15 @@ public class ServerMetaDataBo {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("ServerMetaDataBo{");
-        sb.append("serverInfo='").append(this.serverInfo).append('\'');
-        sb.append(", vmArgs=").append(this.vmArgs);
-        sb.append(", serviceInfos=").append(this.serviceInfos.toString());
+        StringBuilder sb = new StringBuilder("{");
+        sb.append("serverInfo:'").append(this.serverInfo).append('\'');
+        sb.append(", vmArgs:[");
+        for (String vmArg: this.vmArgs){
+            sb.append("'"+vmArg+"',");
+        }
+        sb.append("]");
+        sb.append(", serviceInfos:").append(this.serviceInfos.toString());
+        sb.append('}');
         return sb.toString();
     }
 
