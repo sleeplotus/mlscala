@@ -48,7 +48,13 @@ public class LinkDataMap {
 
     @Override
     public String toString() {
-        return "LinkDataMap [" + linkDataMap + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (LinkKey linkkey:linkDataMap.keySet()){
+            sb.append("{linkKey:"+linkkey).append(",").append("linkData:"+linkDataMap.get(linkkey)).append("}");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     public void addLinkDataMap(LinkDataMap linkDataMap) {

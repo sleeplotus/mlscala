@@ -117,8 +117,12 @@ public class LinkCallDataMap {
 
     @Override
     public String toString() {
-        return "LinkCallDataMap{"
-                    + linkDataMap +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (LinkKey linkkey:linkDataMap.keySet()){
+            sb.append("{linkKey:"+linkkey).append(",").append("linkData:"+linkDataMap.get(linkkey)).append("}");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }

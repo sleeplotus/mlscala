@@ -137,11 +137,11 @@ public class LinkCallData {
 
     @Override
     public String toString() {
-        return "LinkCallData{" +
-                "source='" + source + '\'' +
-                ", sourceServiceType=" + sourceServiceType +
-                ", target='" + target + '\'' +
-                ", targetServiceType=" + targetServiceType +
+        return "{" +
+                "source:'" + source + '\'' +
+                ", sourceServiceType:'" + sourceServiceType + '\'' +
+                ", target:'" + target + '\'' +
+                ", targetServiceType:'" + targetServiceType + '\'' +
                 '}';
     }
 }

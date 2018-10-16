@@ -117,12 +117,12 @@ public final class LinkKey {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("LinkKey{");
-        sb.append("fromApplication='").append(fromApplication).append('\'');
-        sb.append(", fromServiceType=").append(fromServiceType);
-        sb.append(", toApplication='").append(toApplication).append('\'');
-        sb.append(", toServiceType=").append(toServiceType);
-        sb.append(", hash=").append(hash);
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("fromApplication:'").append(fromApplication).append('\'');
+        sb.append(", fromServiceType:'").append(fromServiceType).append('\'');
+        sb.append(", toApplication:'").append(toApplication).append('\'');
+        sb.append(", toServiceType:'").append(toServiceType).append('\'');
+        sb.append(", hash:").append(hash);
         sb.append('}');
         return sb.toString();
     }

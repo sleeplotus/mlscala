@@ -121,10 +121,10 @@ public class LinkData {
 
     @Override
     public String toString() {
-        return "LinkData{" +
-                "fromApplication=" + fromApplication +
-                ", toApplication=" + toApplication +
-                ", " + linkCallDataMap +
+        return "{" +
+                "fromApplication:'" + fromApplication + "'" +
+                ", toApplication:'" + toApplication + "'" +
+                ", linkCallDataMap:" + linkCallDataMap +
                 '}';
     }
 
