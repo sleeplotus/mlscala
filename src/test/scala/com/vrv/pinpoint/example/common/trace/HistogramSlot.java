@@ -51,10 +51,10 @@ public class HistogramSlot {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("HistogramSlot{");
-        sb.append("slotTime=").append(slotTime);
-        sb.append(", slotType=").append(slotType);
-        sb.append(", slotName='").append(slotName).append('\'');
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("slotTime:").append(slotTime);
+        sb.append(", slotType:'").append(slotType).append('\'') ;
+        sb.append(", slotName:'").append(slotName).append('\'');
         sb.append('}');
         return sb.toString();
     }

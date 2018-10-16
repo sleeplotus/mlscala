@@ -116,11 +116,15 @@ public class ResponseTime {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ResponseTime{");
-        sb.append("applicationName='").append(applicationName).append('\'');
-        sb.append(", applicationServiceType=").append(applicationServiceType);
-        sb.append(", timeStamp=").append(timeStamp);
-        sb.append(", responseHistogramMap=").append(responseHistogramMap);
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("applicationName:'").append(applicationName).append('\'');
+        sb.append(", applicationServiceType:'").append(applicationServiceType).append('\'');
+        sb.append(", timeStamp:").append(timeStamp);
+        sb.append(",responseHistogramMap:[");
+        for (String key:responseHistogramMap.keySet()){
+            sb.append("{agentId:'"+key+"'").append(",timeHistogram:"+responseHistogramMap.get(key)+"},");
+        }
+        sb.append(']');
         sb.append('}');
         return sb.toString();
     }

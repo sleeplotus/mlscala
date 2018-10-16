@@ -56,8 +56,8 @@ public class TimeHistogram extends Histogram {
 
     @Override
     public String toString() {
-        return "TimeHistogram{" +
-                "timeStamp=" + timeStamp +
+        return "{" +
+                "timeStamp:" + timeStamp +
                 ", " + super.toString() +
                 '}';
     }

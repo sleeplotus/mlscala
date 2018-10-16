@@ -234,17 +234,17 @@ public class Histogram {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Histogram{");
-        sb.append("schema=").append(schema);
-        sb.append(", fastCount=").append(fastCount);
-        sb.append(", normalCount=").append(normalCount);
-        sb.append(", slowCount=").append(slowCount);
-        sb.append(", verySlowCount=").append(verySlowCount);
-        sb.append(", errorCount=").append(errorCount);
-        sb.append(", fastErrorCount=").append(fastErrorCount);
-        sb.append(", normalErrorCount=").append(normalErrorCount);
-        sb.append(", slowErrorCount=").append(slowErrorCount);
-        sb.append(", verySlowErrorCount=").append(verySlowErrorCount);
+        final StringBuilder sb = new StringBuilder("histogram:{");
+        sb.append("schema:").append(schema);
+        sb.append(", fastCount:").append(fastCount);
+        sb.append(", normalCount:").append(normalCount);
+        sb.append(", slowCount:").append(slowCount);
+        sb.append(", verySlowCount:").append(verySlowCount);
+        sb.append(", errorCount:").append(errorCount);
+        sb.append(", fastErrorCount:").append(fastErrorCount);
+        sb.append(", normalErrorCount:").append(normalErrorCount);
+        sb.append(", slowErrorCount:").append(slowErrorCount);
+        sb.append(", verySlowErrorCount:").append(verySlowErrorCount);
         sb.append('}');
         return sb.toString();
     }

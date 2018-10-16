@@ -126,16 +126,16 @@ public class BaseHistogramSchema implements HistogramSchema {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("typeCode=").append(typeCode);
-        sb.append(", fastSlot=").append(fastSlot);
-        sb.append(", normalSlot=").append(normalSlot);
-        sb.append(", slowSlot=").append(slowSlot);
-        sb.append(", verySlowSlot=").append(verySlowSlot);
-        sb.append(", errorSlot=").append(errorSlot);
-        sb.append(", fastErrorSlot=").append(fastErrorSlot);
-        sb.append(", normalErrorSlot=").append(normalErrorSlot);
-        sb.append(", slowErrorSlot=").append(slowErrorSlot);
-        sb.append(", verySlowErrorSlot=").append(verySlowErrorSlot);
+        sb.append("typeCode:").append(typeCode);
+        sb.append(", fastSlot:").append(fastSlot);
+        sb.append(", normalSlot:").append(normalSlot);
+        sb.append(", slowSlot:").append(slowSlot);
+        sb.append(", verySlowSlot:").append(verySlowSlot);
+        sb.append(", errorSlot:").append(errorSlot);
+        sb.append(", fastErrorSlot:").append(fastErrorSlot);
+        sb.append(", normalErrorSlot:").append(normalErrorSlot);
+        sb.append(", slowErrorSlot:").append(slowErrorSlot);
+        sb.append(", verySlowErrorSlot:").append(verySlowErrorSlot);
         sb.append('}');
         return sb.toString();
     }
