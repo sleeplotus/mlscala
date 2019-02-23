@@ -19,8 +19,8 @@ class SparkSteaming {
     val conf = new SparkConf().setMaster("local[2]").setAppName("NetworkWordCount")
     val ssc = new StreamingContext(conf, Seconds(1))
 
-    // Create a DStream that will connect to hostname:port, like localhost:9000
-    val lines = ssc.socketTextStream("localhost", 9000)
+    // Create a DStream that will connect to hostname:port, like localhost:9999
+    val lines = ssc.socketTextStream("localhost", 9999)
 
     // Split each line into words
     val words = lines.flatMap(_.split(" "))
